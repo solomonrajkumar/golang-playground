@@ -14,7 +14,8 @@ type course struct {
 }
 
 func main()  {
-	encodeJson()
+	//encodeJson()
+	decodeJSON()
 }
 
 func encodeJson() {
@@ -36,4 +37,40 @@ func encodeJson() {
 		panic(err)
 	}
 	fmt.Printf("%s\n", finalJSON)
+}
+
+func decodeJSON() {
+	sampleJson := []byte(`
+		{
+			"course_name": "React",
+			"price": 23,
+			"platform": "xyz.com",
+			"tags": [
+					"Web",
+					"JS"
+			]
+        }
+	`)
+	var lcoCourse course
+	checkValid := json.Valid(sampleJson)
+	if checkValid {
+		fmt.Println("VALID JSON")
+		err := json.Unmarshal(sampleJson, &lcoCourse)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%#v\n", lcoCourse)
+	} else {
+		fmt.Println("INVALID JSON")
+	}
+
+
+	// parse and push to K-V pairs
+	var myData map[string]interface{}
+	json.Unmarshal(sampleJson, &myData)
+	fmt.Printf("%#s\n", myData)
+
+	for k,v := range myData {
+		fmt.Printf("%v : %v  :: %T\n", k, v, v)
+	}
 }
