@@ -4,12 +4,15 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
 func main()  {
 	//testGetRequestCall()
-	makePostReq()
+	//makePostReq()
+	PerformFormPost()
+
 }
 
 func testGetRequestCall() {
@@ -62,4 +65,16 @@ func makePostReq() {
 		panic(err)
 	}
 	fmt.Println(string(byteData))
+}
+
+func PerformFormPost() {
+	const url1 = "http://localhost:8000/postform"
+
+	data := url.Values{}
+	data.Add("name", "raj")
+	response, _ := http.PostForm(url1, data)
+	defer response.Body.Close()
+
+	all, _ := ioutil.ReadAll(response.Body)
+	fmt.Println(string(all))
 }
