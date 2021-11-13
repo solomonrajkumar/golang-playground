@@ -32,4 +32,12 @@ func main()  {
 	fmt.Println(highScores)
 
 	fmt.Println(sort.IntsAreSorted(highScores))
+
+
+	// remove element from slicee
+	var courses = []string{"Golang", "JS", "TS", "Java", "Swift"}
+	fmt.Println(courses)
+	index := 2
+	courses = append(courses[:index], courses[index+1:]...)
+	fmt.Println(courses)
 }
