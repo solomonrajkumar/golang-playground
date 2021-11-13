@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 func main()  {
-	testGetRequestCall()
+	//testGetRequestCall()
+	makePostReq()
 }
 
 func testGetRequestCall() {
@@ -34,4 +36,30 @@ func testGetRequestCall() {
 	//fmt.Println(byteCount)
 	//stringBuilder.Write(byteData)
 	//fmt.Println(stringBuilder.String())
+}
+
+func makePostReq() {
+	const url = "http://localhost:8000/post"
+
+	requestBody := strings.NewReader(`
+		{
+			"course": "Python",
+			"price": "12"
+		}
+	`)
+
+	response, err := http.Post(url, "application/json", requestBody)
+	if err != nil {
+		panic(err)
+	}
+	defer response.Body.Close()
+
+	fmt.Println(response.StatusCode)
+
+	// approach 1
+	byteData, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(byteData))
 }
