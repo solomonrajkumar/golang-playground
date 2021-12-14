@@ -14,8 +14,8 @@ type course struct {
 }
 
 func main()  {
-	//encodeJson()
-	decodeJSON()
+	encodeJson()
+	//decodeJSON()
 }
 
 func encodeJson() {
@@ -26,17 +26,18 @@ func encodeJson() {
 	}
 
 	// package as JSON
-	//finalJSON, err := json.Marshal(lcocourses)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//fmt.Printf("%T\n", finalJSON)
-
-	finalJSON, err := json.MarshalIndent(lcocourses, "", "\t")
+	finalJSON, err := json.Marshal(lcocourses)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", finalJSON)
+	//fmt.Printf("%T\n", finalJSON)
+	fmt.Println(string(finalJSON))
+
+	//finalJSON, err := json.MarshalIndent(lcocourses, "", "\t")
+	//if err != nil {
+	//	panic(err)
+	//}
+	//fmt.Printf("%s\n", finalJSON)
 }
 
 func decodeJSON() {
@@ -60,17 +61,28 @@ func decodeJSON() {
 			panic(err)
 		}
 		fmt.Printf("%#v\n", lcoCourse)
+		fmt.Println("@@@@@@@")
+		fmt.Println(lcoCourse.Name)
+		fmt.Printf("%T\n", lcoCourse.Name)
+		fmt.Println(lcoCourse.Price)
+		fmt.Printf("%T\n", lcoCourse.Price)
+		fmt.Println(lcoCourse.Platform)
+		fmt.Printf("%T\n", lcoCourse.Platform)
+		fmt.Println(lcoCourse.Password)
+		fmt.Printf("%T\n", lcoCourse.Password)
+		fmt.Println(lcoCourse.Tags)
+		fmt.Printf("%T\n", lcoCourse.Tags)
 	} else {
 		fmt.Println("INVALID JSON")
 	}
 
 
 	// parse and push to K-V pairs
-	var myData map[string]interface{}
-	json.Unmarshal(sampleJson, &myData)
-	fmt.Printf("%#s\n", myData)
-
-	for k,v := range myData {
-		fmt.Printf("%v : %v  :: %T\n", k, v, v)
-	}
+	//var myData map[string]interface{}
+	//json.Unmarshal(sampleJson, &myData)
+	//fmt.Printf("%#s\n", myData)
+	//
+	//for k,v := range myData {
+	//	fmt.Printf("%v : %v  :: %T\n", k, v, v)
+	//}
 }
